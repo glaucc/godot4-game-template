@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://cw4ns61o0ayi0"]
+
+[ext_resource type="FontFile" uid="uid://c6l3fmpea1y1t" path="res://assets/font/static/PixelifySans-Regular.ttf" id="1_23dwf"]
+[ext_resource type="Script" path="res://scripts/SplashScreen.gd" id="1_qvoa6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ux802"]
+
+[sub_resource type="Animation" id="Animation_0c0cg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:self_modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_413jp"]
+resource_name = "show_logo"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:self_modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8hjyq"]
+_data = {
+"RESET": SubResource("Animation_0c0cg"),
+"show_logo": SubResource("Animation_413jp")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qvoa6")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_ux802")
+
+[node name="Label" type="Label" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -78.5
+offset_right = 200.0
+offset_bottom = 78.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_23dwf")
+theme_override_font_sizes/font_size = 64
+text = "Paranoid Studios"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8hjyq")
+}
+
+[node name="LogoWaitTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="LogoWaitTimer" to="." method="_on_logo_wait_timer_timeout"]

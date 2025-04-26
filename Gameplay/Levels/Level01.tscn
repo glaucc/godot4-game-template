@@ -1,9 +1,78 @@
-[gd_scene load_steps=2 format=3 uid="uid://dakphwh8q4546"]
+[gd_scene load_steps=6 format=3 uid="uid://dakphwh8q4546"]
 
-[ext_resource type="Texture2D" uid="uid://b26pff71s3o5f" path="res://icon.svg" id="1_wne7b"]
+[ext_resource type="Script" path="res://Gameplay/Levels/level_01.gd" id="1_byu0j"]
+[ext_resource type="Texture2D" uid="uid://d2qpd16836rsa" path="res://assets/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="1_syqbh"]
+[ext_resource type="Texture2D" uid="uid://dt3ch0dr3cqft" path="res://assets/Sprout Lands - UI Pack - Basic pack/Sprite sheets/UI Settings Buttons.png" id="2_ovmok"]
+[ext_resource type="FontFile" uid="uid://bno6u8db5gqwu" path="res://assets/Sprout Lands - UI Pack - Basic pack/fonts/pixelFont-7-8x14-sproutLands.ttf" id="3_duh64"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fxjj2"]
+load_path = "res://.godot/imported/Sprite sheet for Basic Pack.png-eb5d42d303074e6a3f5b83edb60cbdb7.ctex"
 
 [node name="Level01" type="Node2D"]
+script = ExtResource("1_byu0j")
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(93, 89)
-texture = ExtResource("1_wne7b")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 539.0
+offset_bottom = 164.0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MarginContainer"]
+position = Vector2(272, 63.375)
+scale = Vector2(5.86667, 4.12037)
+texture = ExtResource("1_syqbh")
+region_enabled = true
+region_rect = Rect2(163, 178, 90, 27)
+
+[node name="pausebutton" type="Node2D" parent="CanvasLayer/MarginContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MarginContainer/pausebutton"]
+position = Vector2(45, 59)
+scale = Vector2(4.5, 4.5)
+texture = ExtResource("2_ovmok")
+region_enabled = true
+region_rect = Rect2(6, 178, 4, 12)
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/MarginContainer/pausebutton/Sprite2D"]
+position = Vector2(6.66667, 0)
+texture = ExtResource("2_ovmok")
+region_enabled = true
+region_rect = Rect2(6, 178, 4, 12)
+
+[node name="PauseButton" type="Button" parent="CanvasLayer/MarginContainer/pausebutton"]
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 98.0
+offset_bottom = 96.0
+flat = true
+
+[node name="spendables" type="Node2D" parent="CanvasLayer/MarginContainer"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/MarginContainer/spendables"]
+visible = false
+modulate = Color(0.589096, 0.589096, 0.589096, 1)
+position = Vector2(370, 59)
+scale = Vector2(2.99, 2.99)
+texture = SubResource("CompressedTexture2D_fxjj2")
+region_enabled = true
+region_rect = Rect2(259, 180, 90, 25)
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MarginContainer/spendables"]
+position = Vector2(393, 59)
+scale = Vector2(7.64112, 5.14286)
+texture = ExtResource("1_syqbh")
+region_enabled = true
+region_rect = Rect2(402, 105, 28, 14)
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/spendables"]
+offset_left = 302.0
+offset_top = 36.0
+offset_right = 484.0
+offset_bottom = 82.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_duh64")
+theme_override_font_sizes/font_size = 32
+text = "12.5M $"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/pausebutton/PauseButton" to="." method="_on_pause_button_pressed"]
